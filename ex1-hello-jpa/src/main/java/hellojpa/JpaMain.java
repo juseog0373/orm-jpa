@@ -15,25 +15,18 @@ public class JpaMain {
 
         //code
         try {
-//            Member member = new Member();
-//            member.setId(1L);
-//            member.setName("spring");
-//
-//            em.persist(member);
+            // 객체를 생성한 상태 (비영속)
+            Member member = new Member(1L, "helloJPA");
 
-//            Member findMember = em.find(Member.class, 1L);
-//            findMember.setName("HelloJPA");
+            System.out.println("===BEFORE===");
 
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(1)
-                    .setMaxResults(10)
-                    .getResultList();
+            // 로그를 확인해보면 비포와 애프터 사이에 insert 쿼리가 날라가지 않는다.
+            // 아직 DB에 적용되지 않은 상태.
+            em.persist(member);
 
-            for (Member member : result) {
-                System.out.println("member.getId() = " + member.getId());
-                System.out.println("member.getName() = " + member.getName());
-            }
+            System.out.println("===AFTER===");
 
+            // 트랜잭션을 커밋하는 순간 디비에 적용되는 쿼리가 날라간다.
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
