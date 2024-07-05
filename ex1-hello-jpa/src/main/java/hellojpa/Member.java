@@ -6,6 +6,14 @@ import jakarta.persistence.Id;
 @Entity
 public class Member {
 
+    public Member() {
+    }
+
+    public Member(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     private Long id;
     private String name;
@@ -23,11 +31,6 @@ public class Member {
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    public Member(Long id, String name) {
-        this.id = id;
         this.name = name;
     }
 }
