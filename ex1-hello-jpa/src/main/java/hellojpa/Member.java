@@ -1,7 +1,8 @@
 package hellojpa;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
 public class Member {
@@ -16,7 +17,21 @@ public class Member {
 
     @Id
     private Long id;
+
+    @Column(name="name")
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    @Lob
+    private String description;
+
+    @Transient
+    private int temp;
 
     public Long getId() {
         return id;
