@@ -7,31 +7,17 @@ import java.util.Date;
 @Entity
 public class Member {
 
-    public Member() {
-    }
-
-    public Member(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     @Id
+    @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
 
-    @Column(name="name")
+    @Column(name="username")
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-
-    @Lob
-    private String description;
-
-    @Transient
-    private int temp;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     public Long getId() {
         return id;
@@ -47,5 +33,13 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
