@@ -21,18 +21,19 @@ public class JpaMain {
 
             Member member = new Member();
             member.setName("member1");
-            member.setTeam(team);
             em.persist(member);
 
+            team.addMember(member);
+
             em.flush();
-            em.clear();
+            em.clear(); // flush()를 하고 clear()를 하면 1차 캐시를 다 날려서 다음부터는 디비에서 조회를 해온다.
 
-            Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = findMember.getTeam().getMembers();
+            Team findTeam = em.find(Team.class, team.getTeamId()); // 1차캐시
+            List<Member> members = findTeam.getMembers();
 
-            for (Member m : members) {
-                System.out.println("m.getName() = " + m.getName());
-            }
+            System.out.println("==============================");
+            System.out.println("members"+ findTeam);
+            System.out.println("==============================");
 
             tx.commit();
         } catch (Exception e) {
