@@ -27,6 +27,11 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderState orderState;
 
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
     public Long getId() {
         return id;
     }
