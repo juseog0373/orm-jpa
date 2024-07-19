@@ -13,8 +13,8 @@ public class Member {
     @Column(name="username")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
+    @ManyToOne
+    @JoinColumn(name = "team_id", insertable = false, updatable = false) //읽기 전용 필드
     private Team team;
 
     public Long getId() {
@@ -31,14 +31,6 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
     //    public void changeTeam(Team team) {
