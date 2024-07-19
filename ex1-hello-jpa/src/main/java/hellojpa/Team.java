@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 public class Team {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "team_id")
