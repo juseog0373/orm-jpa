@@ -15,7 +15,6 @@ public class JpaMain {
 
         //code
         try {
-
             Movie movie = new Movie();
             movie.setDirector("aaaa");
             movie.setActor("bbbbb");
@@ -27,8 +26,8 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            Movie findMovie = em.find(Movie.class, movie.getId());
-            System.out.println("findMovie = " + findMovie.getName());
+            Item item = em.find(Item.class, movie.getId());
+            System.out.println("findMovie = " + item.getName());
 
             tx.commit();
         } catch (Exception e) {
