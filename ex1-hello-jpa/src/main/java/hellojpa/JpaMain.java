@@ -16,21 +16,32 @@ public class JpaMain {
 
         //code
         try {
+            Team teamA = new Team();
+            teamA.setName("teamA");
+            em.persist(teamA);
+
+            Team teamB = new Team();
+            teamB.setName("teamB");
+            em.persist(teamB);
+
             Member member1 = new Member();
-            member1.setName("hello1");
+            member1.setName("member1");
+            member1.setTeam(teamA);
             em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setName("member2");
+            member2.setTeam(teamB);
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            Member refMember = em.getReference(Member.class, member1.getId());
-            System.out.println("reference.getClass() = " + refMember.getClass()); // Proxy
+//            Member m = em.find(Member.class, member1.getId());
 
-            Member findMember = em.find(Member.class, member1.getId());
-            System.out.println("findMember.getClass() = " + findMember.getClass()); // Member
-
-            System.out.println("findMember == refMember: "+ (findMember == refMember)); // true
-            // JPA는 프록시던 아니던 타입에 대한 true를 보장해준다.
+            List<Member> members = em.createQuery("select m from Member m", Member.class)
+                    .getResultList();
+            // SQL : select * from member;
 
             tx.commit();
         } catch (Exception e) {

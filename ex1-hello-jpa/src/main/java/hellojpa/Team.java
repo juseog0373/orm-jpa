@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Team {
+public class Team extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "team_id")
     private Long teamId;
     private String name;
-
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 

@@ -16,8 +16,8 @@ public class Member extends BaseEntity {
     @Column(name="username")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "team_id") //읽기 전용 필드
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
     private Team team;
 
     public Long getId() {
@@ -43,9 +43,4 @@ public class Member extends BaseEntity {
     public void setTeam(Team team) {
         this.team = team;
     }
-
-    //    public void changeTeam(Team team) {
-//        this.team = team;
-//        team.getMembers().add(this);
-//    }
 }
